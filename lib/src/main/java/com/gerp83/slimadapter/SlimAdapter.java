@@ -14,21 +14,14 @@ import java.util.ArrayList;
  * Class for fast creating RecyclerView.Adapter
  */
 
-public abstract class SlimAdapter extends RecyclerView.Adapter<SlimViewHolder> {
+public class SlimAdapter extends RecyclerView.Adapter<SlimViewHolder> {
 
     protected Context context;
     private ArrayList data;
     protected ArrayList<Integer> layoutIds;
     protected ArrayList<Class> classes;
-    private OnItemClickListener onItemClickListener;
+    private SlimItemClickListener itemClickListener;
     private RecyclerView recyclerView;
-
-    public interface OnItemClickListener {
-        void onItemClicked(Object item);
-    }
-
-    public abstract int getItemViewTypeFromObject(int position);
-
 
     public SlimAdapter(Context context, Integer layoutId, Class clazz){
         this.context = context;
@@ -72,6 +65,16 @@ public abstract class SlimAdapter extends RecyclerView.Adapter<SlimViewHolder> {
         return getItemViewTypeFromObject(position);
     }
 
+    /**
+     * need to  @Override this, if more then one ViewHolder type needed
+     *
+     * @param position position in the adapter
+     * @return the ViewHolder type of the position
+     */
+    public int getItemViewTypeFromObject(int position) {
+        return 0;
+    }
+
     @Override
     public int getItemCount() {
         return data == null ? 0 : data.size();
@@ -94,23 +97,24 @@ public abstract class SlimAdapter extends RecyclerView.Adapter<SlimViewHolder> {
     private View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            if(onItemClickListener != null && recyclerView != null) {
-                onItemClickListener.onItemClicked(getItem(recyclerView.getChildLayoutPosition(view)));
+            if(itemClickListener != null && recyclerView != null) {
+                int currentPosition = recyclerView.getChildLayoutPosition(view);
+                itemClickListener.onItemClicked(currentPosition, getItem(currentPosition));
             }
         }
     };
 
-    public OnItemClickListener getOnItemClickListener() {
-        return this.onItemClickListener;
+    public SlimItemClickListener getOnItemClickListener() {
+        return this.itemClickListener;
     }
 
     /**
      * set View.OnClickListener for rows
      *
-     * @param onItemClickListener OnItemClickListener
+     * @param itemClickListener SlimItemClickListener
      */
-    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
-        this.onItemClickListener = onItemClickListener;
+    public void setOnItemClickListener(SlimItemClickListener itemClickListener) {
+        this.itemClickListener = itemClickListener;
     }
 
     /**

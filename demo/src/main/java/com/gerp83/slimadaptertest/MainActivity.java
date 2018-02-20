@@ -5,6 +5,9 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.Toast;
+
+import com.gerp83.slimadapter.SlimItemClickListener;
 
 import java.util.ArrayList;
 
@@ -42,6 +45,13 @@ public class MainActivity extends AppCompatActivity{
             arr.add(null);
         }
         adapter.addItems(arr);
+
+        adapter.setOnItemClickListener(new SlimItemClickListener() {
+            @Override
+            public void onItemClicked(int position, Object item) {
+                Toast.makeText(MainActivity.this, "Position: " + position, Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 }
