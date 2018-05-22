@@ -39,7 +39,7 @@ public class SlimAdapter extends RecyclerView.Adapter<SlimViewHolder> {
 
     @Override
     public SlimViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(layoutIds.get(getItemViewType(viewType)), null);
+        View view = LayoutInflater.from(parent.getContext()).inflate(layoutIds.get(getItemViewType(viewType)), parent, false);
         view.setOnClickListener(onClickListener);
 
         SlimViewHolder viewHolder = null;
