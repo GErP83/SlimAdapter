@@ -1,6 +1,7 @@
 package com.gerp83.slimadapter;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,14 +38,15 @@ public class SlimAdapter extends RecyclerView.Adapter<SlimViewHolder> {
         this.classes = classes;
     }
 
+    @NonNull
     @Override
-    public SlimViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(layoutIds.get(getItemViewType(viewType)), parent, false);
+    public SlimViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(layoutIds.get(viewType), parent, false);
         view.setOnClickListener(onClickListener);
 
         SlimViewHolder viewHolder = null;
         try {
-            Class<?> newClazz = Class.forName(classes.get(getItemViewType(viewType)).getName());
+            Class<?> newClazz = Class.forName(classes.get(viewType).getName());
             Constructor<?> constructor = newClazz.getConstructor(Context.class, View.class);
             viewHolder = (SlimViewHolder) constructor.newInstance(context, view);
             viewHolder.setAdapter(this);
@@ -56,7 +58,7 @@ public class SlimAdapter extends RecyclerView.Adapter<SlimViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(SlimViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull SlimViewHolder holder, int position) {
         holder.fill(position, data.get(position));
     }
 
