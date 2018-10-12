@@ -18,7 +18,7 @@ import java.util.ArrayList;
 public class SlimAdapter extends RecyclerView.Adapter<SlimViewHolder> {
 
     protected Context context;
-    private ArrayList data;
+    private ArrayList items;
     protected ArrayList<Integer> layoutIds;
     protected ArrayList<Class> classes;
     private SlimItemClickListener itemClickListener;
@@ -59,7 +59,7 @@ public class SlimAdapter extends RecyclerView.Adapter<SlimViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull SlimViewHolder holder, int position) {
-        holder.fill(position, data.get(position));
+        holder.fill(position, items.get(position));
     }
 
     @Override
@@ -79,20 +79,43 @@ public class SlimAdapter extends RecyclerView.Adapter<SlimViewHolder> {
 
     @Override
     public int getItemCount() {
-        return data == null ? 0 : data.size();
-    }
-
-    public Object getItem(int position) {
-        return data.get(position);
+        return items == null ? 0 : items.size();
     }
 
     /**
-     * update with rows data
+     * get an item with position from the items
      *
-     * @param data ArrayList of any type of data
+     * @param position item position
      */
-    public void addItems(ArrayList data){
-        this.data = data;
+    public Object getItem(int position) {
+        return items.get(position);
+    }
+
+    /**
+     * get all items
+     */
+    public ArrayList getAllItems() {
+        return items;
+    }
+
+    /**
+     * update with items
+     *
+     * @param items ArrayList of any type of items
+     */
+    public void addItems(ArrayList items){
+        this.items = items;
+        notifyDataSetChanged();
+    }
+
+    /**
+     * update with new items to the end
+     *
+     * @param newItems ArrayList of any type of items
+     */
+    @SuppressWarnings("unchecked")
+    public void addItemsEnd(ArrayList newItems){
+        items.addAll(newItems);
         notifyDataSetChanged();
     }
 

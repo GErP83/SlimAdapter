@@ -5,7 +5,7 @@
 
     <groupId>com.github.gerp83</groupId>
     <artifactId>SlimAdapter</artifactId>
-    <version>1.03</version>
+    <version>1.04</version>
     <name>SlimAdapter</name>
     <packaging>apklib</packaging>
 
