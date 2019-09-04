@@ -6,8 +6,7 @@ Android api 4.3+:
 
 Add to dependencies:
 ```
-implementation 'com.github.gerp83:SlimAdapter:1.04'
-implementation 'com.android.support:recyclerview-v*'
+implementation 'com.github.gerp83:SlimAdapter:1.05'
 ```
 
 ## Examples
