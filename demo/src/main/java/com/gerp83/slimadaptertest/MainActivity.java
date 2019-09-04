@@ -1,12 +1,12 @@
 package com.gerp83.slimadaptertest;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.gerp83.slimadapter.SlimItemClickListener;
 
@@ -43,11 +43,11 @@ public class MainActivity extends AppCompatActivity{
 
         ArrayList<String> arr = new ArrayList<>();
         for(int i = 0; i < 36; i++) {
-            arr.add(null);
+            arr.add("" + i);
         }
-        adapter.addItems(arr);
+        adapter.add(arr);
 
-        adapter.setOnItemClickListener(new SlimItemClickListener() {
+        adapter.addOnItemClickListener(new SlimItemClickListener() {
             @Override
             public void onItemClicked(int position, Object item) {
                 Toast.makeText(MainActivity.this, "Position: " + position, Toast.LENGTH_SHORT).show();

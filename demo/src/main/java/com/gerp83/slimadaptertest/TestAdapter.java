@@ -1,7 +1,9 @@
 package com.gerp83.slimadaptertest;
 
 import android.content.Context;
+
 import com.gerp83.slimadapter.SlimAdapter;
+
 import java.util.ArrayList;
 
 /**

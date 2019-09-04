@@ -1,10 +1,8 @@
 package com.gerp83.slimadaptertest;
 
-import android.content.Context;
 import android.view.View;
 import android.widget.TextView;
 
-import com.gerp83.lazyfinder.LazyFinder;
 import com.gerp83.slimadapter.SlimViewHolder;
 
 /**
@@ -13,12 +11,11 @@ import com.gerp83.slimadapter.SlimViewHolder;
 
 public class ViewHolder2 extends SlimViewHolder{
 
-    private TextView textView = null;
+    private TextView textView;
 
-    public ViewHolder2(Context context, View itemView) {
+    public ViewHolder2(View itemView) {
         super(itemView);
-        this.context = context;
-        LazyFinder.findAll(context,this, itemView);
+        textView = itemView.findViewById(R.id.textView);
     }
 
     @Override
