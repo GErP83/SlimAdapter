@@ -3,11 +3,8 @@ package com.gerp83.slimadapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
-import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 
 /**
@@ -15,12 +12,13 @@ import java.util.ArrayList;
  * Class for fast creating RecyclerView.Adapter
  */
 
+@SuppressWarnings("ConstantConditions")
 public class SlimAdapter extends RecyclerView.Adapter<SlimViewHolder> implements View.OnClickListener {
 
     private ArrayList<Object> items;
     private ArrayList<Integer> layoutIds;
     private ArrayList<Class> classes;
-    private SlimItemClickListener itemClickListener;
+    private SlimItemClickListener slimItemClickListener;
     private RecyclerView recyclerView;
 
     public SlimAdapter(Integer layoutId, Class clazz){
@@ -44,9 +42,7 @@ public class SlimAdapter extends RecyclerView.Adapter<SlimViewHolder> implements
         SlimViewHolder viewHolder = null;
         try {
             Class<?> newClazz = Class.forName(classes.get(viewType).getName());
-            Constructor<?> constructor = newClazz.getConstructor(View.class);
-            viewHolder = (SlimViewHolder) constructor.newInstance(view);
-
+            viewHolder = (SlimViewHolder) newClazz.getConstructor(View.class).newInstance(view);
         } catch (Throwable e) {
             e.printStackTrace();
         }
@@ -80,9 +76,9 @@ public class SlimAdapter extends RecyclerView.Adapter<SlimViewHolder> implements
 
     @Override
     public void onClick(View view) {
-        if(itemClickListener != null && recyclerView != null) {
+        if(slimItemClickListener != null && recyclerView != null) {
             int currentPosition = recyclerView.getChildLayoutPosition(view);
-            itemClickListener.onItemClicked(currentPosition, getItem(currentPosition));
+            slimItemClickListener.onItemClicked(currentPosition, getItem(currentPosition));
         }
     }
 
@@ -147,7 +143,7 @@ public class SlimAdapter extends RecyclerView.Adapter<SlimViewHolder> implements
      *
      * @param newItems ArrayList of any type of items
      */
-    public void add(ArrayList<Object> newItems){
+    public void addArray(ArrayList<Object> newItems){
         items = newItems;
         notifyDataSetChanged();
     }
@@ -157,7 +153,7 @@ public class SlimAdapter extends RecyclerView.Adapter<SlimViewHolder> implements
      *
      * @param newItems ArrayList of any type of items
      */
-    public void addToFirst(ArrayList<Object> newItems){
+    public void addArrayToFirst(ArrayList<Object> newItems){
         if(items == null) {
             items = new ArrayList<>();
         }
@@ -170,7 +166,7 @@ public class SlimAdapter extends RecyclerView.Adapter<SlimViewHolder> implements
      *
      * @param newItems ArrayList of any type of items
      */
-    public void addToLast(ArrayList<Object> newItems){
+    public void addArrayToLast(ArrayList<Object> newItems){
         if(items == null) {
             items = new ArrayList<>();
         }
@@ -192,10 +188,10 @@ public class SlimAdapter extends RecyclerView.Adapter<SlimViewHolder> implements
     /**
      * set View.OnClickListener for rows
      *
-     * @param clickListener SlimItemClickListener
+     * @param itemClickListener SlimItemClickListener
      */
-    public void addOnItemClickListener(SlimItemClickListener clickListener) {
-        itemClickListener = clickListener;
+    public void addOnItemClickListener(SlimItemClickListener itemClickListener) {
+        slimItemClickListener = itemClickListener;
     }
 
     /**
@@ -203,7 +199,7 @@ public class SlimAdapter extends RecyclerView.Adapter<SlimViewHolder> implements
      *
      */
     public void removeOnItemClickListener() {
-        itemClickListener = null;
+        slimItemClickListener = null;
     }
 
     /**

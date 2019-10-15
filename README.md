@@ -2,11 +2,11 @@
 SlimAdapter is a tiny library for fast creating adapters for RecycleView
 
 ## Requirements:
-Android api 4.3+:
+Android api 5.0+:
 
 Add to dependencies:
 ```
-implementation 'com.github.gerp83:SlimAdapter:1.06'
+implementation 'com.github.gerp83:SlimAdapter:1.07'
 ```
 
 ## Examples
