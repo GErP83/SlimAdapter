@@ -103,11 +103,28 @@ public class SlimAdapter extends RecyclerView.Adapter<SlimViewHolder> implements
     }
 
     /**
+     * get layout ids array
+     */
+    public ArrayList<Integer> getLayoutIds() {
+        return layoutIds;
+    }
+
+    /**
+     * get classes array
+     */
+    public ArrayList<Class> getClasses() {
+        return classes;
+    }
+
+    /**
      * insert one item to the last position
      *
      * @param item Object of any type
      */
     public void add(Object item){
+        if(items == null) {
+            items = new ArrayList<>();
+        }
         items.add(item);
         notifyDataSetChanged();
     }
@@ -118,6 +135,9 @@ public class SlimAdapter extends RecyclerView.Adapter<SlimViewHolder> implements
      * @param item Object of any type
      */
     public void addToFirst(Object item){
+        if(items == null) {
+            items = new ArrayList<>();
+        }
         items.add(0, item);
         notifyDataSetChanged();
     }
@@ -138,6 +158,9 @@ public class SlimAdapter extends RecyclerView.Adapter<SlimViewHolder> implements
      * @param newItems ArrayList of any type of items
      */
     public void addToFirst(ArrayList<Object> newItems){
+        if(items == null) {
+            items = new ArrayList<>();
+        }
         items.addAll(0, newItems);
         notifyDataSetChanged();
     }
@@ -148,6 +171,9 @@ public class SlimAdapter extends RecyclerView.Adapter<SlimViewHolder> implements
      * @param newItems ArrayList of any type of items
      */
     public void addToLast(ArrayList<Object> newItems){
+        if(items == null) {
+            items = new ArrayList<>();
+        }
         items.addAll(newItems);
         notifyDataSetChanged();
     }
@@ -157,7 +183,9 @@ public class SlimAdapter extends RecyclerView.Adapter<SlimViewHolder> implements
      *
      */
     public void clear() {
-        items.clear();
+        if(items != null) {
+            items.clear();
+        }
         notifyDataSetChanged();
     }
 

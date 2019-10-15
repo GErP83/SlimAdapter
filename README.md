@@ -6,7 +6,7 @@ Android api 4.3+:
 
 Add to dependencies:
 ```
-implementation 'com.github.gerp83:SlimAdapter:1.05'
+implementation 'com.github.gerp83:SlimAdapter:1.06'
 ```
 
 ## Examples
